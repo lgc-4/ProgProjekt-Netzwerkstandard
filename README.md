@@ -12,6 +12,8 @@ Autoren:
 - Peer Ole Wachtel
 - Marek Küthe
 
+**Aktuelle Version: 1.0.1**
+
 # Einführung
 
 Im Rahmen des Programmierenprojekts des 3. Semesters im Studiengang Angewandte Informatik an der Hochschule Hannover, Wintersemester 2024/25, ist es die Aufgabe der Studierenden in Unabhängigen Gruppen von idr. je sechs Studierenden ein Spiel im Stil des klassischen Schiffeversenken zu planen und zu implementieren. Es soll möglich sein, über ein Netzwerk gegeneinander zu spielen. Hierbei ist es eine Vorgabe, dass diese Netzwerk-Funktion der Spiele der verschiedenen Gruppen untereinander kompatibel sind. Aufgrund dieser Vorgabe gibt es einen Bedarf für diesen Standard, um die unabhängige Entwicklung der Programme innerhalb der Gruppen zu ermöglichen und dennoch die interoperabilität zu gewährleisten.
@@ -56,6 +58,21 @@ Wählt ein Nutzer die Client-Rolle aus, so wird die Eingabe einer IP-Adresse ben
 
 # Protokoll
 
+## Versionierung
+
+Die Protokoll-Version besteht aus drei Integer Komponenten: Major, Minor und Patch, jeweils durch einen Punkt getrennt.
+
+Beispiel:
+
+```
+1.0.3
+^ ^ ^
+| | |
+| | +-- Patch
+| +---- Minor
++------ Major
+```
+
 ## Aufbau
 
 Um das Protokoll möglichst Platform unabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Pakete zu kennzeichnen. Pakete bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Shlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Pakete wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnent (`\r\n`, `0x0d 0x0a`)
@@ -68,7 +85,26 @@ Ob ein Datensazt mitgesendet wird, oder nicht, ist abhängig vom Schlüsselwort.
 
 ## Vorstellung
 
-Unmittelbar nach Verbindungsherstellung, erfolgt die Vorstellung. Sie besteht aus einem Austausch von Nutzernamen und Semestern.
+Unmittelbar nach Verbindungsherstellung, erfolgt die Vorstellung. Sie besteht aus einem Versionsabgleich und einem Austausch von Nutzernamen und Semestern.
+
+### `VERSION` (erforderlioch)
+
+Das `VERSION` Paket dient dem Versionsabgleich. Der Datensatz enthält einen implementationpezifischen String, zum Beispiel eine URL zur Implementierung, sowie alle von der Instanz unzterstützten Versionen des Protokolls in einer beliebigen Reihenfolge, jeweils getrennt durch ein Leerzeichen.
+
+Beispiele:
+
+```
+VERSION https://example.com/GruppeXX/ProgProjekt 1.0.1
+```
+```
+VERSION GruppeABC 1.0.1 1.2.5 1.0.3
+```
+
+Der implementierungsspezifische String darf nur aus ASCII Symbolen bestehen, keine Leerzeichen enthalten und eine Länge von mindestens einem Zeichen einhalten.
+
+Die zu verwendende Version des Protokolls ist immer die höchste, welche von beiden Instanzen unterstützt wird. Die Bestimmung von hoch zu niedrig erfolgt hierbei zuerst nach Major, dann Minor und anschließend Patch Komponente der Version.
+
+Gibt es keine Übereinstimmung der unterstützen Versionen muss die Verbindung beendet werden.
 
 ### `IAM` (erforderlich)
 
