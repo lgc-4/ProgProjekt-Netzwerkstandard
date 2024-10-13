@@ -1,4 +1,4 @@
-# Kommunikationsprotokoll-Vorschlag für Schiffeversenken mit TCP/IP Sockets
+# Kommunikationsprotokoll für Schiffeversenken mit TCP/IP Sockets
 
 Hochschule Hannover, Programmierenprojekt 3. Semester (BIN), Wintersemester 2024/25, Holitschke
 
