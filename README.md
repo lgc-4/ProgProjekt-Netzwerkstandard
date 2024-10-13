@@ -232,6 +232,8 @@ HIT F12 0
 
 Erzielt ein Spieler einen Treffer (`HIT <Feld> 1`, bzw `HIT <Feld> 2` für versenkenden Treffer), so darf kein Zugwechsel stattfinden. Der Gleiche Spieler ist also erneut am Zug.
 
+Hat ein Spieler alle Schiffe versenkt muss als Antwort stattdessen `HIT <Feld> 3` gesendet werden, was somit das Ende des Spiels kennzeichnent.
+
 ### `CHAT` (optional)
 
 Um den Spielern Kommunikation zu ermöglichen, können Instanzen Textnachrichten mittels des `CHAT` Pakete versenden.
@@ -246,4 +248,10 @@ CHAT Gut Gespielt!
 
 ## Spielende
 
-Da beiden Instanzen das Semester in dem gespielt wird bekannt ist, kann anhand der Anzahl getroffenen Schüsse festgestellt werden, wenn das Spiel zuende ist und ein Spieler gewonnen hat. Dieser Spieler steigt somit ein Semester auf. Die Verbindung kann bei Spielende automatisch getrennt werden.
+Wird ein `HIT <Feld> 3` Paket gesendet oder Empfangen, ist das Spiel zuende. Der Spieler, der alle Schiffe des Spielpartnes versenkt hat, steigt ein Semester auf.
+
+Alternativ kann ein Spiel vorzeitig beendet werden, wenn ein Spieler aufgibt.
+
+### `WITHDRAW` (erforderlich)
+
+Das `WITHDRAW` Paket enthält keinen Datensatz. Es signalisiert, dass der Spieler, welcher dieses Paket sendet, die Spielpartie vorzeitig durch Aufgeben beendet. Dieses Paket zu empfangen, bedeutet einen sofortigen Sieg der Spielpartie, und den Aufstieg in das nächste Semester.
