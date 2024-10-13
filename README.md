@@ -58,13 +58,13 @@ Wählt ein Nutzer die Client-Rolle aus, so wird die Eingabe einer IP-Adresse ben
 
 ## Aufbau
 
-Um das Protokoll möglichst Platform unabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Packages zu kennzeichnen. Packages bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Shlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Packages wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnent (`\r\n`, `0x0d 0x0a`)
+Um das Protokoll möglichst Platform unabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Pakete zu kennzeichnen. Pakete bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Shlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Pakete wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnent (`\r\n`, `0x0d 0x0a`)
 
 ```
 <Schlüsselwort> [Datensatz]\r\n
 ```
 
-Ob ein Datensazt mitgesendet wird, oder nicht, ist abhängig vom Schlüsselwort. Erhält eine Instanz ein Package mit einem ungültigen, fehlenden oder überflüssigem Datensatz entgegen dieser Spezifikation, so soll dieses Package ignoriert/verworfen werden.
+Ob ein Datensazt mitgesendet wird, oder nicht, ist abhängig vom Schlüsselwort. Erhält eine Instanz ein Paket mit einem ungültigen, fehlenden oder überflüssigem Datensatz entgegen dieser Spezifikation, so soll dieses Paket ignoriert/verworfen werden.
 
 ## Vorstellung
 
@@ -72,7 +72,7 @@ Unmittelbar nach Verbindungsherstellung, erfolgt die Vorstellung. Sie besteht au
 
 ### `IAM` (erforderlich)
 
-Nachdem eine Verbindung hergestellt wurde und Versionen abgeglichen wurden, müssen beide Instanzen ein Package mit dem Schlüsselwort `IAM`, ihrem aktuellen Semester, und einem vom Nutzer definierten Namen, der dann beim Gegner angezeigt werden soll, senden.
+Nachdem eine Verbindung hergestellt wurde und Versionen abgeglichen wurden, müssen beide Instanzen ein Paket mit dem Schlüsselwort `IAM`, ihrem aktuellen Semester, und einem vom Nutzer definierten Namen, der dann beim Gegner angezeigt werden soll, senden.
 
 Syntax:
 
@@ -86,9 +86,9 @@ Beispiel:
 IAM 2 Max Mustermann
 ```
 
-Nachdem ein `IAM` Package erhalten wurde, sollen alle weiteren `IAM` Packages ignoriert werden.
+Nachdem ein `IAM` Paket erhalten wurde, sollen alle weiteren `IAM` Pakete ignoriert werden.
 
-Der im `IAM` Package enthaltene Nutzername darf eine Länge von 32 Zeichen nicht überschreiten. Sollte doch ein `IAM` Package mit einem Nutzernamen von mehr als 32 Zeichen erhalten werden, sollte der Name hinter dem 32. Zeichen abgeschnitten werden.
+Der im `IAM` Paket enthaltene Nutzername darf eine Länge von 32 Zeichen nicht überschreiten. Sollte doch ein `IAM` Paket mit einem Nutzernamen von mehr als 32 Zeichen erhalten werden, sollte der Name hinter dem 32. Zeichen abgeschnitten werden.
 
 Das Semester, in dem gespielt wird, ist das kleinste Semester der beiden Spieler.
 
@@ -105,19 +105,19 @@ Das Semester, in dem gespielt wird bestimmt eindeutig die größe des Spielfelds
 
 #### Server Discovery (optional)
 
-Zusätzlich zu der Funktion im eigentlichen Protokoll, kann das `IAM` Package, wenn eine Instanz die Server-Rolle annimmt, auch als UDP Broadcast Nachricht ins Netzwerk geschickt werden, um Clients, die nach einem Server suchen, die Eingabe der IP-Adresse zu ersparen. Hierbei muss der gleiche Port als Ziel verwendet werden, wie für das TCP Protokoll.
+Zusätzlich zu der Funktion im eigentlichen Protokoll, kann das `IAM` Paket, wenn eine Instanz die Server-Rolle annimmt, auch als UDP Broadcast Nachricht ins Netzwerk geschickt werden, um Clients, die nach einem Server suchen, die Eingabe der IP-Adresse zu ersparen. Hierbei muss der gleiche Port als Ziel verwendet werden, wie für das TCP Protokoll.
 
-Zur Schonung der Bandbreite soll dieses Package nicht häufiger als ein mal alle 5 sekunden gesendet werden.
+Zur Schonung der Bandbreite soll dieses Paket nicht häufiger als ein mal alle 5 sekunden gesendet werden.
 
-Nimmt eine Instanz die Server-Rolle an, so kann sie gleichzeitig auch einen UDP Client starten, der das Package broadcastet.
+Nimmt eine Instanz die Server-Rolle an, so kann sie gleichzeitig auch einen UDP Client starten, der das Paket broadcastet.
 
-Nimmt eine Instanz die Client-Rolle an, so kann sie gleichzeitig auch einen UDP Server starten, der auf eingehende Packages wartet, um die Server-Instanze(n) automatisch zu finden.
+Nimmt eine Instanz die Client-Rolle an, so kann sie gleichzeitig auch einen UDP Server starten, der auf eingehende Pakete wartet, um die Server-Instanze(n) automatisch zu finden.
 
 Wichtig: Für diese Funktion ist es notwendig, die Broadcast Adresse des Netzwerkes zu errechnen.
 
 ### `IAMU` (optional)
 
-Das `IAMU` Package ähnelt dem `IAM` Package in der Funktion, mit dem entscheidendem Unterschied, dass das `IAMU` Package das Semester nicht beinhaltet, und einen UTF-8 Codierten Nutzernamen überträgt, statt einen in ASCII kodiertem Namen. Statt einer Maximallänge von 32 Zeichen darf der Nutzername im `IAMU` Package eine Maximallänge von 32 Bytes nicht überschreiten.
+Das `IAMU` Paket ähnelt dem `IAM` Paket in der Funktion, mit dem entscheidendem Unterschied, dass das `IAMU` Paket das Semester nicht beinhaltet, und einen UTF-8 Codierten Nutzernamen überträgt, statt einen in ASCII kodiertem Namen. Statt einer Maximallänge von 32 Zeichen darf der Nutzername im `IAMU` Paket eine Maximallänge von 32 Bytes nicht überschreiten.
 
 Beispiel:
 
@@ -133,13 +133,13 @@ Hexadezimal Darstellung:
 I  A  M  U     G    Ü   N  T  H  E  R  \r \n
 ```
 
-Wenn sowohl ein `IAM` als auch ein `IAMU` Package erhalten werden, sollte das `IAMU` Package, sofern es unterstützt wird, stehts Vorrang in der Bestimmung des Nutzernamens haben.
+Wenn sowohl ein `IAM` als auch ein `IAMU` Paket erhalten werden, sollte das `IAMU` Paket, sofern es unterstützt wird, stehts Vorrang in der Bestimmung des Nutzernamens haben.
 
 ## Spielstart
 
 ### `COIN` (erforderlich)
 
-Nachdem die Spieler ihre Schiffe plaziert habe, muss das `COIN` Package gesendet werden. Beide Instanzen müssen genau einen zufälligen Bit (1 oder 0) generieren und müssen diesen (ASCII formatiert) im COIN Package an den Spielpartner senden.
+Nachdem die Spieler ihre Schiffe plaziert habe, muss das `COIN` Paket gesendet werden. Beide Instanzen müssen genau einen zufälligen Bit (1 oder 0) generieren und müssen diesen (ASCII formatiert) im COIN Paket an den Spielpartner senden.
 
 Beispiel:
 
@@ -159,7 +159,7 @@ Beispiel:
 
 ### `SHOOT` (erforderlich)
 
-Das SHOOT Package teilt dem Spielpartner mit, welches Feld der Spieler "beschossen" hat. Das Package muss im Datensatz die Koordinaten des ausgewählten Feldes enthalten. Die erste Komponente der Koordinaten ist ein Buchstabe, welcher die Position auf der X-Achse beschreibt. Hierbei korrospondiert der Position des Buchstabens im Alphabet mit der X-Koordinate, an der sich das beschossene Feld befindet. Die zweite Komponente beschreibt die Position auf der Y-Achse durch eine Zahl. Die beiden Komponenten werden einfach konkatiniert.
+Das SHOOT Paket teilt dem Spielpartner mit, welches Feld der Spieler "beschossen" hat. Das Paket muss im Datensatz die Koordinaten des ausgewählten Feldes enthalten. Die erste Komponente der Koordinaten ist ein Buchstabe, welcher die Position auf der X-Achse beschreibt. Hierbei korrospondiert der Position des Buchstabens im Alphabet mit der X-Koordinate, an der sich das beschossene Feld befindet. Die zweite Komponente beschreibt die Position auf der Y-Achse durch eine Zahl. Die beiden Komponenten werden einfach konkatiniert.
 
 Beispiel: C5 beschreibt das Feld in der 3. Spalte und in der 5. Zeile.
 
@@ -171,15 +171,15 @@ Beispiel:
 SHOOT F12
 ```
 
-Als Antwort auf ein `SHOOT` Package wird ein `HIT` Package erwartet.
+Als Antwort auf ein `SHOOT` Paket wird ein `HIT` Paket erwartet.
 
-Wenn ein `SHOOT` Package erhalten wird, während es nicht der Zug des Gegners ist, oder die Koordinaten im Datensatz des Packages ungültig sind (z.B. außerhalb des Spielfeldes), soll dieses verworfen werden.
+Wenn ein `SHOOT` Paket erhalten wird, während es nicht der Zug des Gegners ist, oder die Koordinaten im Datensatz des Pakete ungültig sind (z.B. außerhalb des Spielfeldes), soll dieses verworfen werden.
 
 ### `HIT` (erforderlich)
 
-Das `HIT` Package ist die Antwort auf jedes SHOOT Package, unabhängig davon, ob es sich tatsächlich um einen Treffer handelt, oder nicht.
+Das `HIT` Paket ist die Antwort auf jedes SHOOT Paket, unabhängig davon, ob es sich tatsächlich um einen Treffer handelt, oder nicht.
 
-Der Datensatz des `HIT` Packages enthält zunächst die Koordinate, die beschossen wurde (wie bei `SHOOT`) und anschließend, mit einem Leerzeichen getrennt, eine Zahl, die angbit, ob es sich bei dem Schuss um einen Treffer handelte oder nicht.
+Der Datensatz des `HIT` Pakete enthält zunächst die Koordinate, die beschossen wurde (wie bei `SHOOT`) und anschließend, mit einem Leerzeichen getrennt, eine Zahl, die angbit, ob es sich bei dem Schuss um einen Treffer handelte oder nicht.
 
 - **0** - kein Treffer
 - **1** - Treffer
@@ -198,9 +198,9 @@ Erzielt ein Spieler einen Treffer (`HIT <Feld> 1`, bzw `HIT <Feld> 2` für verse
 
 ### `CHAT` (optional)
 
-Um den Spielern Kommunikation zu ermöglichen, können Instanzen Textnachrichten mittels des `CHAT` Packages versenden.
+Um den Spielern Kommunikation zu ermöglichen, können Instanzen Textnachrichten mittels des `CHAT` Pakete versenden.
 
-`CHAT` Packages enthalten als Datensatz die gesendete Nachricht als UTF-8 String. Zeilenumbrüche und Carriage Returns (`\n` und `\r`) dürfen nicht im Datensatz enthalten sein. Nachrichten dürfen außerdem nicht länger als 256 Zeichen sein. Nachrichten die länger sind als 256 können in mehrere Nachrichten aufgeteilt werden.
+`CHAT` Pakete enthalten als Datensatz die gesendete Nachricht als UTF-8 String. Zeilenumbrüche und Carriage Returns (`\n` und `\r`) dürfen nicht im Datensatz enthalten sein. Nachrichten dürfen außerdem nicht länger als 256 Zeichen sein. Nachrichten die länger sind als 256 können in mehrere Nachrichten aufgeteilt werden.
 
 Beispiel:
 
