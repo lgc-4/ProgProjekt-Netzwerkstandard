@@ -12,7 +12,7 @@ Autoren:
 - Peer Ole Wachtel
 - Marek Küthe
 
-**Aktuelle Version: 1.0.1**
+**Aktuelle Version: 1.1.0**
 
 # Einführung
 
