@@ -28,10 +28,10 @@ Um die genauen Anforderungen und deren Bedeutung für die Funktion des Protokoll
 
 1. **Müssen**
 
-   Dieses Verb, sowie das Wort "erforderlich", bedeuten eine Definition, die für die Funktion des Protokolls unbedingt notwendig ist und dessen Implementierung für die Unterstützung des Netzwerk Aspekts des Projekts unumgänglich ist.
+   Dieses Verb, sowie das Wort "erforderlich", bedeuten eine Definition, die für die Funktion des Protokolls unbedingt notwendig ist und dessen Implementierung für die Unterstützung des Netzwerkaspekts des Projekts unumgänglich ist.
 2. **Nicht dürfen**
 
-   Dieser Ausdruch, bedeutet ein absolutes Verbot der Spezifikation.
+   Dieser Ausdruck, bedeutet ein absolutes Verbot der Spezifikation.
 3. **Sollen**
 
    Dieses Verb, sowie das Wort "empfohlen", bedeuten eine Definition, die nicht unmittelbar erforderlich ist, um die Funktion des Protokolls zu gewährleisten. Es kann Gründe geben (so wie Zeitmangel) aus denen diese Definition nicht implementiert wird. Jedoch sollte man die gesamten Auswirkungen des Auslassens dieser Definition verstehen und abwägen, bevor ein anderer Weg eingeschlagen wird.
@@ -75,21 +75,22 @@ Beispiel:
 
 ## Aufbau
 
-Um das Protokoll möglichst Platform unabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Pakete zu kennzeichnen. Pakete bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Shlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Pakete wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnent (`\r\n`, `0x0d 0x0a`)
+Um das Protokoll möglichst Platform unabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Pakete zu kennzeichnen. Pakete bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Schlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Pakete wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnet (`\r\n`, `0x0d 0x0a`)
+
 
 ```
 <Schlüsselwort> [Datensatz]\r\n
 ```
 
-Ob ein Datensazt mitgesendet wird, oder nicht, ist abhängig vom Schlüsselwort. Erhält eine Instanz ein Paket mit einem ungültigen, fehlenden oder überflüssigem Datensatz entgegen dieser Spezifikation, so soll dieses Paket ignoriert/verworfen werden.
+Ob ein Datensatz mitgesendet wird, oder nicht, ist abhängig vom Schlüsselwort. Erhält eine Instanz ein Paket mit einem ungültigen, fehlenden oder überflüssigem Datensatz entgegen dieser Spezifikation, so soll dieses Paket ignoriert/verworfen werden.
 
 ## Vorstellung
 
 Unmittelbar nach Verbindungsherstellung, erfolgt die Vorstellung. Sie besteht aus einem Versionsabgleich und einem Austausch von Nutzernamen und Semestern.
 
-### `VERSION` (erforderlioch)
+### `VERSION` (erforderlich)
 
-Das `VERSION` Paket dient dem Versionsabgleich. Der Datensatz enthält einen implementationpezifischen String, zum Beispiel eine URL zur Implementierung, sowie alle von der Instanz unzterstützten Versionen des Protokolls in einer beliebigen Reihenfolge, jeweils getrennt durch ein Leerzeichen.
+Das `VERSION` Paket dient dem Versionsabgleich. Der Datensatz enthält einen implementationpezifischen String, zum Beispiel eine URL zur Implementierung, sowie alle von der Instanz unterstützten Versionen des Protokolls in einer beliebigen Reihenfolge, jeweils getrennt durch ein Leerzeichen.
 
 Beispiele:
 
@@ -195,7 +196,7 @@ Beispiel:
 
 ### `SHOOT` (erforderlich)
 
-Das SHOOT Paket teilt dem Spielpartner mit, welches Feld der Spieler "beschossen" hat. Das Paket muss im Datensatz die Koordinaten des ausgewählten Feldes enthalten. Die erste Komponente der Koordinaten ist ein Buchstabe, welcher die Position auf der X-Achse beschreibt. Hierbei korrospondiert der Position des Buchstabens im Alphabet mit der X-Koordinate, an der sich das beschossene Feld befindet. Die zweite Komponente beschreibt die Position auf der Y-Achse durch eine Zahl. Die beiden Komponenten werden einfach konkatiniert.
+Das SHOOT Paket teilt dem Spielpartner mit, welches Feld der Spieler "beschossen" hat. Das Paket muss im Datensatz die Koordinaten des ausgewählten Feldes enthalten. Die erste Komponente der Koordinaten ist ein Buchstabe, welcher die Position auf der X-Achse beschreibt. Hierbei korrespondiert der Position des Buchstabens im Alphabet mit der X-Koordinate, an der sich das beschossene Feld befindet. Die zweite Komponente beschreibt die Position auf der Y-Achse durch eine Zahl. Die beiden Komponenten werden einfach konkatiniert.
 
 Beispiel: C5 beschreibt das Feld in der 3. Spalte und in der 5. Zeile.
 
