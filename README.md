@@ -16,39 +16,39 @@ Autoren:
 
 # Einführung
 
-Im Rahmen des Programmierenprojekts des 3. Semesters im Studiengang Angewandte Informatik an der Hochschule Hannover, Wintersemester 2024/25, ist es die Aufgabe der Studierenden in Unabhängigen Gruppen von idr. je sechs Studierenden ein Spiel im Stil des klassischen Schiffeversenken zu planen und zu implementieren. Es soll möglich sein, über ein Netzwerk gegeneinander zu spielen. Hierbei ist es eine Vorgabe, dass diese Netzwerk-Funktion der Spiele der verschiedenen Gruppen untereinander kompatibel sind. Aufgrund dieser Vorgabe gibt es einen Bedarf für diesen Standard, um die unabhängige Entwicklung der Programme innerhalb der Gruppen zu ermöglichen und dennoch die interoperabilität zu gewährleisten.
+Im Rahmen des Programmierenprojekts des 3. Semesters im Studiengang Angewandte Informatik an der Hochschule Hannover, Wintersemester 2024/25, ist es die Aufgabe der Studierenden in unabhängigen Gruppen von in der Regel je sechs Studierenden, ein Spiel im Stil des klassischen Schiffeversenken zu planen und zu implementieren. Es soll möglich sein, über ein Netzwerk gegeneinander zu spielen. Hierbei ist es eine Vorgabe, dass diese Netzwerkfunktionen der Spiele der verschiedenen Gruppen untereinander kompatibel sind. Aufgrund dieser Vorgabe gibt es einen Bedarf für diesen Standard, um die unabhängige Entwicklung der Programme innerhalb der Gruppen zu ermöglichen und dennoch die Interoperabilität zu gewährleisten.
 
 Die laufenden, von den Studierenden zu erstellenden Programme werden im Rahmen dieses Dokumentes "Instanzen" genannt.
 
 ## Anforderungsstufen
 
-(grobe Übersetzung von RFC2119)
+(Grobe Übersetzung von RFC2119)
 
-Um die genauen Anforderungen und deren Bedeutung für die Funktion des Protokolls unmissverständlich zu definieren, werden im folgenden gewisse Verben und Ausdrücke, sowie deren Bedeutung im Rahmen dieses Dokumentes erläutert.
+Um die genauen Anforderungen und deren Bedeutung für die Funktion des Protokolls unmissverständlich zu definieren, werden im Folgenden gewisse Verben und Ausdrücke sowie deren Bedeutung im Rahmen dieses Dokumentes erläutert.
 
 1. **Müssen**
 
-   Dieses Verb, sowie das Wort "erforderlich", bedeuten eine Definition, die für die Funktion des Protokolls unbedingt notwendig ist und dessen Implementierung für die Unterstützung des Netzwerkaspekts des Projekts unumgänglich ist.
+   Dieses Verb sowie das Wort "erforderlich" bedeuten eine Definition, die für die Funktion des Protokolls unbedingt notwendig ist und deren Implementierung für die Unterstützung des Netzwerkaspekts des Projekts unumgänglich ist.
 2. **Nicht dürfen**
 
-   Dieser Ausdruck, bedeutet ein absolutes Verbot der Spezifikation.
+   Dieser Ausdruck bedeutet ein absolutes Verbot der Spezifikation.
 3. **Sollen**
 
-   Dieses Verb, sowie das Wort "empfohlen", bedeuten eine Definition, die nicht unmittelbar erforderlich ist, um die Funktion des Protokolls zu gewährleisten. Es kann Gründe geben (so wie Zeitmangel) aus denen diese Definition nicht implementiert wird. Jedoch sollte man die gesamten Auswirkungen des Auslassens dieser Definition verstehen und abwägen, bevor ein anderer Weg eingeschlagen wird.
+   Dieses Verb sowie das Wort "empfohlen" bedeuten eine Definition, die nicht unmittelbar erforderlich ist, um die Funktion des Protokolls zu gewährleisten. Es kann Gründe geben (so wie Zeitmangel), aus denen diese Definition nicht implementiert wird. Jedoch sollte man die gesamten Auswirkungen des Auslassens dieser Definition verstehen und abwägen, bevor ein anderer Weg eingeschlagen wird.
 4. **Nicht sollen**
 
-   Dieser Ausdruck, sowie der Ausdruck "nicht empfohlen", bedeuten dass es Gründe geben kann, aus denen das beschriebene Verhalten akzeptabel oder sogar wünschenswert ist. Jedoch sollte man die gesamten Auswirkungen des Implementierungs dieses Verhaltens verstehen und abwägen, bevor irgendein Verhalten, dass mit diesem Ausdruck beschrieben wird, implementiert wird.
+   Dieser Ausdruck sowie der Ausdruck "nicht empfohlen" bedeuten, dass es Gründe geben kann, aus denen das beschriebene Verhalten akzeptabel oder sogar wünschenswert ist. Jedoch sollte man die gesamten Auswirkungen des Implementierungs dieses Verhaltens verstehen und abwägen, bevor irgendein Verhalten, das mit diesem Ausdruck beschrieben wird, implementiert wird.
 5. **Können**
 
-   Dieses Verb, sowie das Wort "optional" oder der Ausruck "nicht müssen", bedeuten eine Definition die für die Funktion des Protokolls unentscheident ist. Die Entscheidung diese Definition zu implementieren ist den Entscheidungsfällenden frei überlassen.
+   Dieses Verb sowie das Wort "optional" oder der Ausdruck "nicht müssen" bedeuten eine Definition, die für die Funktion des Protokolls unentscheidend ist. Die Entscheidung, diese Definition zu implementieren, ist den Entscheidungsfällenden frei überlassen.
 
 # Verbindungsaufbau
 
-Um eine Verbindung zwischen zwei Instanzen zu ermöglichen, muss eine Instanz die Rolle eines Servers annehmen, und die andere Instanz die Rolle eines Clients. Dies soll jeweils von den Nutzern bestimmt werden. Eine Auswahl der Server-Rolle kann beispielsweise durch eine Option "Online Spiel erstellen" erfolgen, und die Auswahl der Client-Rolle durch eine Option "Online Spiel beitreten".
+Um eine Verbindung zwischen zwei Instanzen zu ermöglichen, muss eine Instanz die Rolle eines Servers annehmen und die andere Instanz die Rolle eines Clients. Dies soll jeweils von den Nutzern bestimmt werden. Eine Auswahl der Server-Rolle kann beispielsweise durch eine Option "Online Spiel erstellen" erfolgen und die Auswahl der Client-Rolle durch eine Option "Online Spiel beitreten".
 
 ## Server
 
-Wählt ein Nutzer die Server-Rolle aus, muss die Instanz beginnen auf dem TCP Port 51525 auf Verbindungen zu warten, sofern vom Nutzer nicht explizit ein anderer Port definiert wurde. Die Änderung dieser Port nummer soll möglich sein, für den Fall, dass der oben genannte Standard-Port durch einen anderen Prozess blockiert ist.
+Wählt ein Nutzer die Server-Rolle aus, muss die Instanz beginnen, auf dem TCP Port 51525 auf Verbindungen zu warten, sofern vom Nutzer nicht explizit ein anderer Port definiert wurde. Die Änderung dieser Portnummer soll möglich sein, für den Fall, dass der oben genannte Standard-Port durch einen anderen Prozess blockiert ist.
 
 Sobald sich ein Client verbunden hat, müssen keine weiteren Verbindungen mehr angenommen werden, bis die Verbindung zum Client wieder getrennt wurde.
 
@@ -75,22 +75,22 @@ Beispiel:
 
 ## Aufbau
 
-Um das Protokoll möglichst Platform unabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Pakete zu kennzeichnen. Pakete bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Schlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Pakete wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnet (`\r\n`, `0x0d 0x0a`)
+Um das Protokoll möglichst platformunabhängig zu halten, wird (mit einigen Ausnahmen) Klartext bzw. ASCII für die Kommunikation verwendet. Ähnlich wie im SMTP Protokoll werden gewisse Schlüsselwörter verwendet, um verschiedene Pakete zu kennzeichnen. Pakete bestehen aus dem Schlüsselwort und gegebenenfalls einem Datensatz. Diese werden durch ein Leerzeichen (`0x20`) getrennt. Benötigt ein Schlüsselwort keinen Datensatz, fällt das Leerzeichen ebenfalls weg. Das Ende von Paketen wird durch einen Carriage Return und einen Zeilenumbruch gekennzeichnet (`\r\n`, `0x0d 0x0a`)
 
 
 ```
 <Schlüsselwort> [Datensatz]\r\n
 ```
 
-Ob ein Datensatz mitgesendet wird, oder nicht, ist abhängig vom Schlüsselwort. Erhält eine Instanz ein Paket mit einem ungültigen, fehlenden oder überflüssigem Datensatz entgegen dieser Spezifikation, so soll dieses Paket ignoriert/verworfen werden.
+Ob ein Datensatz mitgesendet wird oder nicht, ist abhängig vom Schlüsselwort. Erhält eine Instanz ein Paket mit einem ungültigen, fehlenden oder überflüssigen Datensatz entgegen dieser Spezifikation, so soll dieses Paket ignoriert/verworfen werden.
 
 ## Vorstellung
 
-Unmittelbar nach Verbindungsherstellung, erfolgt die Vorstellung. Sie besteht aus einem Versionsabgleich und einem Austausch von Nutzernamen und Semestern.
+Unmittelbar nach Verbindungsherstellung erfolgt die Vorstellung. Sie besteht aus einem Versionsabgleich und einem Austausch von Nutzernamen und Semestern.
 
 ### `VERSION` (erforderlich)
 
-Das `VERSION` Paket dient dem Versionsabgleich. Der Datensatz enthält einen implementationpezifischen String, zum Beispiel eine URL zur Implementierung, sowie alle von der Instanz unterstützten Versionen des Protokolls in einer beliebigen Reihenfolge, jeweils getrennt durch ein Leerzeichen.
+Das `VERSION` Paket dient dem Versionsabgleich. Der Datensatz enthält einen implementationsspezifischen String, zum Beispiel eine URL zur Implementierung, gefolgt von allen von der Instanz unterstützten Versionen des Protokolls in einer beliebigen Reihenfolge, jeweils getrennt durch ein Leerzeichen.
 
 Beispiele:
 
@@ -103,9 +103,9 @@ VERSION GruppeABC 1.0.1 1.2.5 1.0.3
 
 Der implementierungsspezifische String darf nur aus ASCII Symbolen bestehen, keine Leerzeichen enthalten und eine Länge von mindestens einem Zeichen einhalten.
 
-Die zu verwendende Version des Protokolls ist immer die höchste, welche von beiden Instanzen unterstützt wird. Die Bestimmung von hoch zu niedrig erfolgt hierbei zuerst nach Major, dann Minor und anschließend Patch Komponente der Version.
+Die zu verwendende Version des Protokolls ist immer die höchste, welche von beiden Instanzen unterstützt wird. Die Bestimmung von hoch zu niedrig erfolgt hierbei zuerst nach Major, dann nach Minor und anschließend nach Patch Komponente der Version.
 
-Gibt es keine Übereinstimmung der unterstützen Versionen muss die Verbindung beendet werden.
+Gibt es keine Übereinstimmung der unterstützten Versionen, muss die Verbindung beendet werden.
 
 ### `IAM` (erforderlich)
 
@@ -129,7 +129,7 @@ Der im `IAM` Paket enthaltene Nutzername darf eine Länge von 32 Zeichen nicht �
 
 Das Semester, in dem gespielt wird, ist das kleinste Semester der beiden Spieler.
 
-Das Semester, in dem gespielt wird bestimmt eindeutig die größe des Spielfelds.
+Das Semester, in dem gespielt wird, bestimmt eindeutig die Größe des Spielfelds.
 
 | Semester | Größe   |
 |----------|---------|
@@ -142,9 +142,9 @@ Das Semester, in dem gespielt wird bestimmt eindeutig die größe des Spielfelds
 
 #### Server Discovery (optional)
 
-Zusätzlich zu der Funktion im eigentlichen Protokoll, kann das `IAM` Paket, wenn eine Instanz die Server-Rolle annimmt, auch als UDP Broadcast Nachricht ins Netzwerk geschickt werden, um Clients, die nach einem Server suchen, die Eingabe der IP-Adresse zu ersparen. Hierbei muss der gleiche Port als Ziel verwendet werden, wie für das TCP Protokoll.
+Zusätzlich zu der Funktion im eigentlichen Protokoll kann das `IAM` Paket, wenn eine Instanz die Server-Rolle annimmt, auch als UDP Broadcast Nachricht ins Netzwerk geschickt werden, um Clients, die nach einem Server suchen, die Eingabe der IP-Adresse zu ersparen. Hierbei muss der gleiche Port als Ziel verwendet werden wie für das TCP Protokoll.
 
-Zur Schonung der Bandbreite soll dieses Paket nicht häufiger als ein mal alle 5 sekunden gesendet werden.
+Zur Schonung der Bandbreite soll dieses Paket nicht häufiger als einmal alle 5 Sekunden gesendet werden.
 
 Nimmt eine Instanz die Server-Rolle an, so kann sie gleichzeitig auch einen UDP Client starten, der das Paket broadcastet.
 
@@ -154,7 +154,7 @@ Wichtig: Für diese Funktion ist es notwendig, die Broadcast Adresse des Netzwer
 
 ### `IAMU` (optional)
 
-Das `IAMU` Paket ähnelt dem `IAM` Paket in der Funktion, mit dem entscheidendem Unterschied, dass das `IAMU` Paket das Semester nicht beinhaltet, und einen UTF-8 Codierten Nutzernamen überträgt, statt einen in ASCII kodiertem Namen. Statt einer Maximallänge von 32 Zeichen darf der Nutzername im `IAMU` Paket eine Maximallänge von 32 Bytes nicht überschreiten.
+Das `IAMU` Paket ähnelt dem `IAM` Paket in der Funktion, mit dem entscheidenden Unterschied, dass das `IAMU` Paket das Semester nicht beinhaltet, und einen UTF-8 kodierten Nutzernamen überträgt, statt einen in ASCII kodierten Namen. Statt einer Maximallänge von 32 Zeichen darf der Nutzername im `IAMU` Paket eine Maximallänge von 32 Bytes nicht überschreiten.
 
 Beispiel:
 
@@ -162,7 +162,7 @@ Beispiel:
 IAMU Günther
 ```
 
-Hexadezimal Darstellung:
+Hexadezimale Darstellung:
 
 ```
 49 41 4d 55 20 47 c3 bc 6e 74 68 65 72 0d 0a
@@ -170,13 +170,13 @@ Hexadezimal Darstellung:
 I  A  M  U     G    Ü   N  T  H  E  R  \r \n
 ```
 
-Wenn sowohl ein `IAM` als auch ein `IAMU` Paket erhalten werden, sollte das `IAMU` Paket, sofern es unterstützt wird, stehts Vorrang in der Bestimmung des Nutzernamens haben.
+Wenn sowohl ein `IAM` als auch ein `IAMU` Paket erhalten werden, sollte das `IAMU` Paket, sofern es unterstützt wird, stets Vorrang in der Bestimmung des Nutzernamens haben.
 
 ## Spielstart
 
 ### `COIN` (erforderlich)
 
-Nachdem die Spieler ihre Schiffe plaziert habe, muss das `COIN` Paket gesendet werden. Beide Instanzen müssen genau einen zufälligen Bit (1 oder 0) generieren und müssen diesen (ASCII formatiert) im COIN Paket an den Spielpartner senden.
+Nachdem die Spieler ihre Schiffe platziert haben, muss das `COIN` Paket gesendet werden. Beide Instanzen müssen genau einen zufälligen Bit (1 oder 0) generieren und müssen diesen (ASCII formatiert) im `COIN` Paket an den Spielpartner senden.
 
 Beispiel:
 
@@ -184,7 +184,7 @@ Beispiel:
 COIN 0 
 ```
 
-Um zu bestimmen, welcher der Spieler beginnt, werden die Ergebnisse beider Münzwürfe mit einer XOR Operation Kombiniert. Ist das Resultat des XOR eine 1, so beginnt die Server-Instanz. Ist das Resultat eine 0, so beginnt die Client-Instanz.1
+Um zu bestimmen, welcher der Spieler beginnt, werden die Ergebnisse beider Münzwürfe mit einer XOR Operation kombiniert. Ist das Resultat des XOR eine 1, so beginnt die Server-Instanz. Ist das Resultat eine 0, so beginnt die Client-Instanz.
 
 Beispiel:
 
@@ -196,11 +196,11 @@ Beispiel:
 
 ### `SHOOT` (erforderlich)
 
-Das SHOOT Paket teilt dem Spielpartner mit, welches Feld der Spieler "beschossen" hat. Das Paket muss im Datensatz die Koordinaten des ausgewählten Feldes enthalten. Die erste Komponente der Koordinaten ist ein Buchstabe, welcher die Position auf der X-Achse beschreibt. Hierbei korrespondiert der Position des Buchstabens im Alphabet mit der X-Koordinate, an der sich das beschossene Feld befindet. Die zweite Komponente beschreibt die Position auf der Y-Achse durch eine Zahl. Die beiden Komponenten werden einfach konkatiniert.
+Das SHOOT Paket teilt dem Spielpartner mit, welches Feld der Spieler "beschossen" hat. Das Paket muss im Datensatz die Koordinaten des ausgewählten Feldes enthalten. Die erste Komponente der Koordinaten ist ein Buchstabe, welcher die Position auf der X-Achse beschreibt. Hierbei korrespondiert die Position des Buchstabens im Alphabet mit der X-Koordinate, an der sich das beschossene Feld befindet. Die zweite Komponente beschreibt die Position auf der Y-Achse durch eine Zahl. Die beiden Komponenten werden einfach konkatiniert.
 
 Beispiel: C5 beschreibt das Feld in der 3. Spalte und in der 5. Zeile.
 
-Merke, die Koordinaten beginnen bei A bzw 1. Array-Indizes fangen in der Regel jedoch bei 0 an.
+Merke: Die Koordinaten beginnen bei A bzw. 1. Array-Indizes fangen in der Regel jedoch bei 0 an.
 
 Beispiel:
 
@@ -210,13 +210,13 @@ SHOOT F12
 
 Als Antwort auf ein `SHOOT` Paket wird ein `HIT` Paket erwartet.
 
-Wenn ein `SHOOT` Paket erhalten wird, während es nicht der Zug des Gegners ist, oder die Koordinaten im Datensatz des Pakete ungültig sind (z.B. außerhalb des Spielfeldes), soll dieses verworfen werden.
+Wenn ein `SHOOT` Paket erhalten wird, während es nicht der Zug des Gegners ist, oder die Koordinaten im Datensatz des Paketes ungültig sind (z. B. außerhalb des Spielfeldes), soll dieses verworfen werden.
 
 ### `HIT` (erforderlich)
 
-Das `HIT` Paket ist die Antwort auf jedes SHOOT Paket, unabhängig davon, ob es sich tatsächlich um einen Treffer handelt, oder nicht.
+Das `HIT` Paket ist die Antwort auf jedes `SHOOT` Paket, unabhängig davon, ob es sich tatsächlich um einen Treffer handelt oder nicht.
 
-Der Datensatz des `HIT` Pakete enthält zunächst die Koordinate, die beschossen wurde (wie bei `SHOOT`) und anschließend, mit einem Leerzeichen getrennt, eine Zahl, die angbit, ob es sich bei dem Schuss um einen Treffer handelte oder nicht.
+Der Datensatz des `HIT` Paketes enthält zunächst die Koordinate, die beschossen wurde (wie bei `SHOOT`) und anschließend, mit einem Leerzeichen getrennt, eine Zahl, die angibt, ob es sich bei dem Schuss um einen Treffer handelte oder nicht.
 
 - **0** - kein Treffer
 - **1** - Treffer
@@ -231,28 +231,28 @@ HIT F12 0
 
 > Schuss F12 war kein Treffer
 
-Erzielt ein Spieler einen Treffer (`HIT <Feld> 1`, bzw `HIT <Feld> 2` für versenkenden Treffer), so darf kein Zugwechsel stattfinden. Der Gleiche Spieler ist also erneut am Zug.
+Erzielt ein Spieler einen Treffer (`HIT <Feld> 1`, bzw. `HIT <Feld> 2` für versenkenden Treffer), so darf kein Zugwechsel stattfinden. Der gleiche Spieler ist also erneut am Zug.
 
-Hat ein Spieler alle Schiffe versenkt muss als Antwort stattdessen `HIT <Feld> 3` gesendet werden, was somit das Ende des Spiels kennzeichnent.
+Hat ein Spieler alle Schiffe versenkt, muss als Antwort stattdessen `HIT <Feld> 3` gesendet werden, was somit das Ende des Spiels kennzeichnet.
 
 ### `CHAT` (optional)
 
-Um den Spielern Kommunikation zu ermöglichen, können Instanzen Textnachrichten mittels des `CHAT` Pakete versenden.
+Um den Spielern Kommunikation zu ermöglichen, können Instanzen Textnachrichten mittels des `CHAT` Paketes versenden.
 
-`CHAT` Pakete enthalten als Datensatz die gesendete Nachricht als UTF-8 String. Zeilenumbrüche und Carriage Returns (`\n` und `\r`) dürfen nicht im Datensatz enthalten sein. Nachrichten dürfen außerdem nicht länger als 256 Zeichen sein. Nachrichten die länger sind als 256 können in mehrere Nachrichten aufgeteilt werden.
+`CHAT` Pakete enthalten als Datensatz die gesendete Nachricht als UTF-8 String. Zeilenumbrüche und Carriage Returns (`\n` und `\r`) dürfen nicht im Datensatz enthalten sein. Nachrichten dürfen außerdem nicht länger als 256 Zeichen sein. Nachrichten, die länger sind als 256 Zeichen, können in mehrere Nachrichten aufgeteilt werden.
 
 Beispiel:
 
 ```
-CHAT Gut Gespielt!
+CHAT Gut gespielt!
 ```
 
 ## Spielende
 
-Wird ein `HIT <Feld> 3` Paket gesendet oder Empfangen, ist das Spiel zuende. Der Spieler, der alle Schiffe des Spielpartnes versenkt hat, steigt ein Semester auf.
+Wird ein `HIT <Feld> 3` Paket gesendet oder empfangen, ist das Spiel zu Ende. Der Spieler, der alle Schiffe des Spielpartnes versenkt hat, steigt ein Semester auf.
 
 Alternativ kann ein Spiel vorzeitig beendet werden, wenn ein Spieler aufgibt.
 
 ### `WITHDRAW` (erforderlich)
 
-Das `WITHDRAW` Paket enthält keinen Datensatz. Es signalisiert, dass der Spieler, welcher dieses Paket sendet, die Spielpartie vorzeitig durch Aufgeben beendet. Dieses Paket zu empfangen, bedeutet einen sofortigen Sieg der Spielpartie, und den Aufstieg in das nächste Semester.
+Das `WITHDRAW` Paket enthält keinen Datensatz. Es signalisiert, dass der Spieler, welcher dieses Paket sendet, die Spielpartie vorzeitig durch Aufgeben beendet. Dieses Paket zu empfangen, bedeutet einen sofortigen Sieg der Spielpartie und den Aufstieg in das nächste Semester.
