@@ -162,7 +162,7 @@ Beispiel:
 IAMU Günther
 ```
 
-Hexadezimale Darstellung:
+Hexadezimal Darstellung:
 
 ```
 49 41 4d 55 20 47 c3 bc 6e 74 68 65 72 0d 0a
